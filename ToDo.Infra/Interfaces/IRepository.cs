@@ -1,7 +1,6 @@
-using System;
 using ToDo.Domain.interfaces;
 
-namespace ToDo.Infra.Repositories.Interfaces;
+namespace ToDo.Infra.Interfaces;
 
 public interface IRepository<TEntity>
     where TEntity : IEntity
