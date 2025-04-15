@@ -6,13 +6,6 @@ using ToDo.Infra.Interfaces;
 
 namespace ToDo.Infra.Repositories;
 
-public class Repository<TEntity>(IDbContextFactory<SqliteContext> contextFactory)
+public class Repository<TEntity>(IDbContextFactory<SqliteContext> sqliteFactory)
     : IRepository<TEntity>
-    where TEntity : IEntity
-{
-    public async Task MigrateAsync()
-    {
-        await using var db = await contextFactory.CreateDbContextAsync();
-        await db.Database.MigrateAsync();
-    }
-}
+    where TEntity : IEntity { }
