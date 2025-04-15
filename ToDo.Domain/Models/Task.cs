@@ -1,8 +1,9 @@
 using System;
+using ToDo.Domain.interfaces;
 
 namespace ToDo.Domain.Models;
 
-public class Task
+public class Task : IEntity
 {
     public required int Id { get; set; }
     public required string Title { get; set; }
