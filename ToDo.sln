@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Domain.Validators", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Domain.Validators.UnitTests", "ToDo.Domain.Validators.UnitTests\ToDo.Domain.Validators.UnitTests.csproj", "{62DE249F-E95F-42B8-881A-3248560872DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Infra.Contexts", "ToDo.Infra.Contexts\ToDo.Infra.Contexts.csproj", "{440327FF-BB62-4831-AA5B-FF77AB0276F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Infra", "ToDo.Infra.Contexts\ToDo.Infra.csproj", "{440327FF-BB62-4831-AA5B-FF77AB0276F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDo.Infra.Repositories", "ToDo.Infra.Repositories\ToDo.Infra.Repositories.csproj", "{E2D42ED2-6191-45F8-9B86-F7701598E24A}"
 EndProject
