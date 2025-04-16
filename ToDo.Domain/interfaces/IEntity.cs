@@ -1,5 +1,3 @@
-using System;
-
-namespace ToDo.Domain.interfaces;
+namespace ToDo.Domain.Interfaces;
 
 public interface IEntity;
