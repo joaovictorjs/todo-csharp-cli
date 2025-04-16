@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using ToDo.Infra.Contexts;
 using ToDo.Infra.Interfaces;

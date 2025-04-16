@@ -4,17 +4,18 @@ namespace ToDo.App.Commands;
 
 public class NewTaskCommand
 {
-    private static Option<string> _nameOption = new Option<string>(["-n", "--name"], "Task name")
+    private static readonly Option<string> _nameOption = new(["-n", "--name"], "Task name")
     {
         IsRequired = true,
-        ArgumentHelpName = "value",
+        ArgumentHelpName = "value"
     };
-    private static Option<string> _descOption = new Option<string>(
+
+    private static readonly Option<string> _descOption = new(
         ["-d", "--desc"],
         "Task description"
     )
     {
-        ArgumentHelpName = "value",
+        ArgumentHelpName = "value"
     };
 
     private static string _name = string.Empty;
