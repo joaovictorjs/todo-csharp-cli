@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using ToDo.Domain.interfaces;
+using ToDo.Domain.Interfaces;
 using ToDo.Infra.Contexts;
-using ToDo.Infra.Interfaces;
 
 namespace ToDo.Infra.Repositories;
 
