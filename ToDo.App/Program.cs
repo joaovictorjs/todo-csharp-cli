@@ -6,7 +6,8 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var argumentHandler = new ProgramArgumentHandler();
-        argumentHandler.Handle(args);
+        var rootCommand = new RootCommand("CSharp ToDo list application");
+
+        rootCommand.Invoke(args);
     }
 }
