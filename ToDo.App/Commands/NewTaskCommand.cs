@@ -1,4 +1,5 @@
 using System.CommandLine;
+using ToDo.Domain.Exceptions;
 using ToDo.Domain.Extensions;
 using ToDo.Domain.Interfaces;
 using TaskModel = ToDo.Domain.Models.Task;
@@ -32,18 +33,25 @@ public class NewTaskCommand(ITaskService taskService)
 
     private async Task HandleNewTask(string name, string desc)
     {
-       var result =  await taskService.CreateAsync(
-            new TaskModel
-            {
-                Name = name,
-                Description = desc.IsNullOrWhiteSpace() ? string.Empty : desc,
-                IsDone = false,
-            }
-        );
+        try
+        {
+            var result = await taskService.CreateAsync(
+                new TaskModel
+                {
+                    Name = name,
+                    Description = desc.IsNullOrWhiteSpace() ? string.Empty : desc,
+                    IsDone = false,
+                }
+            );
 
-        if (result)
-            ConsoleExtensions.WriteSuccess("Task has been created.");
-        else
-            ConsoleExtensions.WriteError("Task has not been created.");
+            if (result)
+                ConsoleExtensions.WriteSuccess("Task has been created.");
+            else
+                ConsoleExtensions.WriteError("Task has not been created.");
+        }
+        catch (Exception ex)
+        {
+            ex.Handle(ConsoleExtensions.WriteError);
+        }
     }
 }
