@@ -48,6 +48,8 @@ public class Injector
             .RegisterType<Repository<TaskModel>>()
             .As<IRepository<TaskModel>>()
             .SingleInstance();
+
+        _builder.RegisterType<MigrationRepository>().As<IMigrationRepository>();
     }
 
     private void RegisterServices()
