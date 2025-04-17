@@ -23,10 +23,16 @@ public class Repository<TEntity>(IDbContextFactory<SqliteContext> sqliteFactory)
         return await db.SaveChangesAsync();
     }
 
-    public async Task<List<TEntity>> ReadAsync(Expression<Func<TEntity, bool>> whereClause)
+    public async Task<List<TEntity>> ReadAsync(
+        params Expression<Func<TEntity, bool>>[] whereClauses
+    )
     {
         await using var db = await sqliteFactory.CreateDbContextAsync();
-        return await db.Set<TEntity>().AsNoTracking().Where(whereClause).ToListAsync();
+        var query = db.Set<TEntity>().AsQueryable();
+
+        query = whereClauses.Aggregate(query, (current, where) => current.Where(where));
+
+        return await query.ToListAsync();
     }
 
     public async Task<int> UpdateAsync(TEntity entity)
