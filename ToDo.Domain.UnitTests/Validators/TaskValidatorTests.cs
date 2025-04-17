@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Moq;
+using ToDo.Domain.Constants;
 using ToDo.Domain.Enums;
 using ToDo.Domain.Exceptions;
 using ToDo.Domain.Interfaces;
@@ -29,9 +30,12 @@ public class TaskValidatorTests
             IsDone = false,
         };
 
-        await Assert.ThrowsAsync<ValidationException>(
+        var exception = await Record.ExceptionAsync(
             () => _validator.Validate(Operation.Create, model)
         );
+
+        Assert.IsType<ValidationException>(exception);
+        Assert.Equal(ExceptionMessages.EmptyName, exception.Message);
     }
 
     [Fact]
@@ -48,9 +52,11 @@ public class TaskValidatorTests
             .Setup(it => it.ReadAsync(It.IsAny<Expression<Func<TaskModel, bool>>>()))
             .ReturnsAsync([model]);
 
-        var ex = await Record.ExceptionAsync(() => _validator.Validate(Operation.Create, model));
+        var exception = await Record.ExceptionAsync(
+            () => _validator.Validate(Operation.Create, model)
+        );
 
-        Assert.IsType<ValidationException>(ex);
-        Assert.Equal("This name is already in use.", ex.Message);
+        Assert.IsType<ValidationException>(exception);
+        Assert.Equal(ExceptionMessages.NameInUse, exception.Message);
     }
 }

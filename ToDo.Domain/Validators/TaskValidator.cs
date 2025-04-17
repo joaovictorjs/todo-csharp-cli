@@ -1,4 +1,5 @@
-﻿using ToDo.Domain.Enums;
+﻿using ToDo.Domain.Constants;
+using ToDo.Domain.Enums;
 using ToDo.Domain.Exceptions;
 using ToDo.Domain.Extensions;
 using ToDo.Domain.Interfaces;
@@ -24,9 +25,9 @@ public class TaskValidator(IRepository<TaskModel> repository) : ITaskValidator
 
     private async Task ValidateCreation(TaskModel task)
     {
-        if (task.Name.IsNullOrWhiteSpace()) throw new ValidationException("Task name cannot be empty.");
+        if (task.Name.IsNullOrWhiteSpace()) throw new ValidationException(ExceptionMessages.EmptyName);
 
-        if (await ValidateNameExists(task)) throw new ValidationException("This name is already in use.");
+        if (await ValidateNameExists(task)) throw new ValidationException(ExceptionMessages.NameInUse);
     }
 
     private async Task<bool> ValidateNameExists(TaskModel task)
