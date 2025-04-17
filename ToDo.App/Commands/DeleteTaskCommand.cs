@@ -35,9 +35,9 @@ public class DeleteTaskCommand(ITaskService taskService)
             });
             
             if(result)
-                ConsoleExtensions.WriteSuccess("Task successfully deleted");
+                ConsoleExtensions.WriteSuccess("Task successfully deleted.");
             else
-                ConsoleExtensions.WriteError("Task could not be deleted");
+                ConsoleExtensions.WriteError("Task could not be deleted.");
         }
         catch (Exception ex)
         {
