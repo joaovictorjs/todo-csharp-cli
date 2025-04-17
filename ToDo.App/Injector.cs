@@ -60,6 +60,7 @@ public class Injector
     private void RegisterCommands()
     {
         _builder.RegisterType<NewTaskCommand>().SingleInstance();
+        _builder.RegisterType<SearchTaskCommand>().SingleInstance();
     }
 
     public T Resolve<T>()
