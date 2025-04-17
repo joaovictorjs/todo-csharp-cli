@@ -1,5 +1,7 @@
 using System.CommandLine;
+using ToDo.Domain.Extensions;
 using ToDo.Domain.Interfaces;
+using TaskModel = ToDo.Domain.Models.Task;
 
 namespace ToDo.App.Commands;
 
@@ -8,19 +10,16 @@ public class NewTaskCommand(ITaskService taskService)
     private readonly Option<string> _nameOption = new(["-n", "--name"], "Task name")
     {
         IsRequired = true,
-        ArgumentHelpName = "value"
+        ArgumentHelpName = "value",
     };
 
-    private  readonly Option<string> _descOption = new(
-        ["-d", "--desc"],
-        "Task description"
-    )
+    private readonly Option<string> _descOption = new(["-d", "--desc"], "Task description")
     {
-        ArgumentHelpName = "value"
+        ArgumentHelpName = "value",
     };
 
-    private  string _name = string.Empty;
-    private  string _desc = string.Empty;
+    private string _name = string.Empty;
+    private string _desc = string.Empty;
 
     public Command Build()
     {
@@ -31,8 +30,20 @@ public class NewTaskCommand(ITaskService taskService)
         return command;
     }
 
-    private  void HandleNewTask(string name, string desc)
+    private async Task HandleNewTask(string name, string desc)
     {
-        // throw new NotImplementedException();
+       var result =  await taskService.CreateAsync(
+            new TaskModel
+            {
+                Name = name,
+                Description = desc.IsNullOrWhiteSpace() ? string.Empty : desc,
+                IsDone = false,
+            }
+        );
+
+        if (result)
+            ConsoleExtensions.WriteSuccess("Task has been created.");
+        else
+            ConsoleExtensions.WriteError("Task has not been created.");
     }
 }
