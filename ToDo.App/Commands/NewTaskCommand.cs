@@ -19,9 +19,6 @@ public class NewTaskCommand(ITaskService taskService)
         ArgumentHelpName = "value",
     };
 
-    private string _name = string.Empty;
-    private string _desc = string.Empty;
-
     public Command Build()
     {
         var command = new Command("new", "Creates a new task") { _nameOption, _descOption };
