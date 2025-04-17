@@ -1,6 +1,8 @@
-﻿namespace ToDo.Domain.Interfaces;
+﻿using TaskMoldel = ToDo.Domain.Models.Task;
+
+namespace ToDo.Domain.Interfaces;
 
 public interface ITaskService
 {
-    Task<bool> CreateAsync(Models.Task task);
+    Task<bool> CreateAsync(TaskMoldel task);
 }
