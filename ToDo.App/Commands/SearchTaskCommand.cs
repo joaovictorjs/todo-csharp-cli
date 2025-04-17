@@ -1,4 +1,5 @@
 ﻿using System.CommandLine;
+using ToDo.Domain.Exceptions;
 using ToDo.Domain.Interfaces;
 
 namespace ToDo.App.Commands;
@@ -46,8 +47,30 @@ public class SearchTaskCommand(ITaskService taskService)
         return command;
     }
 
-    private void HandleSearchTasks(string? name, string? desc, bool? done, bool? noteDone)
+    private async Task HandleSearchTasks(string? name, string? desc, bool? done, bool? notDone)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var result = await taskService.ReadAsync(name, desc, done ?? !notDone);
+
+            for (var i = 0; i < result.Count; i++)
+            {
+                if (i == 0)
+                    Console.WriteLine();
+
+                var task = result[i];
+
+                Console.WriteLine(
+                    $"Id: {task.Id}\nName: {task.Name}\nDescription: {task.Description}\nDone: {task.IsDone}\n"
+                );
+
+                if (i < result.Count - 1)
+                    Console.WriteLine($"{new string('-', 44)}\n");
+            }
+        }
+        catch (Exception ex)
+        {
+            ex.Handle(ConsoleExtensions.WriteError);
+        }
     }
 }
