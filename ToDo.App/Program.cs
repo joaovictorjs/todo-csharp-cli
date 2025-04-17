@@ -14,6 +14,7 @@ public class Program
         var rootCommand = new RootCommand("CSharp ToDo list application");
 
         rootCommand.AddCommand(injector.Resolve<NewTaskCommand>().Build());
+        rootCommand.AddCommand(injector.Resolve<SearchTaskCommand>().Build());
 
         return await rootCommand.InvokeAsync(args);
     }
