@@ -10,7 +10,7 @@ public class Program
         var rootCommand = new RootCommand("CSharp ToDo list application");
 
         rootCommand.AddCommand(NewTaskCommand.Build());
-        
+
         rootCommand.Invoke(args);
     }
 }

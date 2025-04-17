@@ -2,5 +2,5 @@
 
 public enum Operation
 {
-    Create = 1,
+    Create = 1
 }

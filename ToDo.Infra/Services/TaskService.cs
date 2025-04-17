@@ -10,6 +10,6 @@ public class TaskService(IRepository<TaskModel> repository, ITaskValidator valid
     public async Task<bool> CreateAsync(TaskModel task)
     {
         await validator.Validate(Operation.Create, task);
-        return (await repository.CreateAsync(task)) > 0;
+        return await repository.CreateAsync(task) > 0;
     }
 }
