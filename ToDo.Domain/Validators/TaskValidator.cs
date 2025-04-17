@@ -1,14 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using ToDo.Domain.Enums;
+﻿using ToDo.Domain.Enums;
+using ToDo.Domain.Exceptions;
 using ToDo.Domain.Extensions;
 using ToDo.Domain.Interfaces;
-using Task = ToDo.Domain.Models.Task;
+using TaskModel = ToDo.Domain.Models.Task;
 
 namespace ToDo.Domain.Validators;
 
-public class TaskValidator(IRepository<Task> repository) : ITaskValidator
+public class TaskValidator(IRepository<TaskModel> repository) : ITaskValidator
 {
-    public async System.Threading.Tasks.Task Validate(Operation operation, Task task)
+    public async Task Validate(Operation operation, TaskModel task)
     {
         switch (operation)
         {
@@ -22,14 +22,14 @@ public class TaskValidator(IRepository<Task> repository) : ITaskValidator
         }
     }
 
-    private async System.Threading.Tasks.Task ValidateCreation(Task task)
+    private async Task ValidateCreation(TaskModel task)
     {
         if (task.Name.IsNullOrWhiteSpace()) throw new ValidationException("Task name cannot be empty.");
 
         if (await ValidateNameExists(task)) throw new ValidationException("This name is already in use.");
     }
 
-    private async Task<bool> ValidateNameExists(Task task)
+    private async Task<bool> ValidateNameExists(TaskModel task)
     {
         return (await repository.ReadAsync(it => it.Name == task.Name)).Count != 0;
     }
