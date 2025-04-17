@@ -6,7 +6,7 @@ public interface IRepository<TEntity>
     where TEntity : IEntity
 {
     Task<int> CreateAsync(TEntity entity);
-    Task<List<TEntity>> ReadAsync(Expression<Func<TEntity, bool>> whereClause);
+    Task<List<TEntity>> ReadAsync(params Expression<Func<TEntity, bool>>[] whereClauses);
     Task<int> UpdateAsync(TEntity entity);
     Task<int> DeleteAsync(TEntity entity);
 }
