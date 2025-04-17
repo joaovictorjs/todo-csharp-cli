@@ -59,4 +59,27 @@ public class TaskValidatorTests
         Assert.IsType<ValidationException>(exception);
         Assert.Equal(ExceptionMessages.NameInUse, exception.Message);
     }
+    
+    [Fact]
+    public async Task ShouldThrow_ValidationException_WhenTaskNotFound()
+    {
+        var model = new TaskModel
+        {
+            Id = 1,
+            Name = string.Empty,
+            Description = string.Empty,
+            IsDone = false,
+        };
+
+        _repository
+            .Setup(it => it.ReadAsync(It.IsAny<Expression<Func<TaskModel, bool>>>()))
+            .ReturnsAsync([]);
+
+        var exception = await Record.ExceptionAsync(
+            () => _validator.Validate(Operation.Delete, model)
+        );
+
+        Assert.IsType<ValidationException>(exception);
+        Assert.Equal(ExceptionMessages.TaskNotFound, exception.Message);
+    }
 }

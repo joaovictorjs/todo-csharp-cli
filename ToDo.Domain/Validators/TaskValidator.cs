@@ -14,20 +14,34 @@ public class TaskValidator(IRepository<TaskModel> repository) : ITaskValidator
         switch (operation)
         {
             case Operation.Create:
-            {
-                await ValidateCreation(task);
-            }
+                {
+                    await ValidateCreation(task);
+                }
+                break;
+            case Operation.Update:
+            case Operation.Delete:
+                {
+                    await ValidateDeletion(task);
+                }
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(operation), operation, null);
         }
     }
 
+    private async Task ValidateDeletion(TaskModel task)
+    {
+        if ((await repository.ReadAsync(it => it.Id == task.Id)).Count == 0)
+            throw new ValidationException(ExceptionMessages.TaskNotFound);
+    }
+
     private async Task ValidateCreation(TaskModel task)
     {
-        if (task.Name.IsNullOrWhiteSpace()) throw new ValidationException(ExceptionMessages.EmptyName);
+        if (task.Name.IsNullOrWhiteSpace())
+            throw new ValidationException(ExceptionMessages.EmptyName);
 
-        if (await ValidateNameExists(task)) throw new ValidationException(ExceptionMessages.NameInUse);
+        if (await ValidateNameExists(task))
+            throw new ValidationException(ExceptionMessages.NameInUse);
     }
 
     private async Task<bool> ValidateNameExists(TaskModel task)

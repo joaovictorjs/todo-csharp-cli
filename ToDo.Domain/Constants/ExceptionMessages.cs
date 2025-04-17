@@ -4,4 +4,5 @@ public static class ExceptionMessages
 {
     public const string EmptyName = "Task name cannot be empty.";
     public const string NameInUse = "This name is already in use.";
+    public const string TaskNotFound = "Task not found.";
 }

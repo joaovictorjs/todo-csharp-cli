@@ -61,6 +61,7 @@ public class Injector
     {
         _builder.RegisterType<NewTaskCommand>().SingleInstance();
         _builder.RegisterType<SearchTaskCommand>().SingleInstance();
+        _builder.RegisterType<DeleteTaskCommand>().SingleInstance();
     }
 
     public T Resolve<T>()

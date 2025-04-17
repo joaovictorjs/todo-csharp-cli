@@ -26,4 +26,10 @@ public class TaskService(IRepository<TaskModel> repository, ITaskValidator valid
 
         return repository.ReadAsync(filters.ToArray());
     }
+
+    public async Task<bool> DeleteAsync(TaskModel task)
+    {
+        await validator.Validate(Operation.Delete, task);
+        return await repository.DeleteAsync(task) > 0;
+    }
 }

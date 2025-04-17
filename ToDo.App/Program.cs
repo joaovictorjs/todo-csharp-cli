@@ -15,6 +15,7 @@ public class Program
 
         rootCommand.AddCommand(injector.Resolve<NewTaskCommand>().Build());
         rootCommand.AddCommand(injector.Resolve<SearchTaskCommand>().Build());
+        rootCommand.AddCommand(injector.Resolve<DeleteTaskCommand>().Build());
 
         return await rootCommand.InvokeAsync(args);
     }
